@@ -18,19 +18,17 @@ URL          : https://www.youtube.com/watch?v=ds97cgeFe54
 A = B = C = 0
 
 # --- 画面設定 ---
-# cube_widths = [20, 10, 5] # 複数サイズの立方体の半径(中心から各面までの距離)
-# offsets = [-40, 10, 40]   # 各立方体の水平オフセット
-cube_widths = [20]          # 複数サイズの立方体の半径(中心から各面までの距離)
-offsets = [0]               # 各立方体の水平オフセット
+cube_widths = [20, 10, 5] # 複数サイズの立方体の半径(中心から各面までの距離)
+offsets = [-40, 10, 40]   # 各立方体の水平オフセット
 
 width, height = 160, 40   # コンソールの画面サイズ(文字単位)
-distance_from_cam = 100   # カメラとキューブの距離(小さくすると迫力が増す)
+distance_from_cam = 200   # カメラとキューブの距離(小さくすると迫力が増す)
 K1 = 40                   # 投影スケール(遠近感の強さを調整)
 
 # --- 表示設定 ---
-background_ascii_code = '_' # 背景を見やすくする文字列(半角スペース, アンダーバー, etc.)
+background_ascii_code = ' ' # 背景を見やすくする文字列(半角スペース, アンダーバー, etc.)
 increment_speed = 0.6       # キューブの点をサンプリングする間隔
-target_fps = 60
+target_fps = 10
 target_dt = 1.0 / target_fps
 
 # --- バッファ ---
@@ -82,6 +80,7 @@ def clear_screen():
     """
     print("\033[H\033[J", end="") # Linux/mac/Windows(ANSI対応)共通
 
+
 # ============================
 # メインループ
 # ============================
@@ -105,8 +104,8 @@ def main():
                     calculate_for_surface(cube_width + horizontal_offset, cube_y, cube_x, '$')
                     calculate_for_surface(-cube_width + horizontal_offset, cube_y, -cube_x, '~')
                     calculate_for_surface(-cube_x + horizontal_offset, cube_y, cube_width, '#')
-                    calculate_for_surface(cube_x + horizontal_offset, -cube_width, -cube_y, ';')
-                    calculate_for_surface(cube_x + horizontal_offset, cube_width, cube_y, '+')
+                    calculate_for_surface(cube_x + horizontal_offset, cube_width, -cube_y, ';')
+                    calculate_for_surface(cube_x + horizontal_offset, -cube_width, cube_y, '+')
                     cube_y += increment_speed
                 cube_x += increment_speed
 
@@ -122,10 +121,9 @@ def main():
         now = time.perf_counter()
         dt = now - prev_time
         prev_time = now
-        rotate_const = 10
-        A += math.radians(rotate_const * 3) * dt # 1秒で180度回転
-        B += math.radians(rotate_const * 2) * dt
-        C += math.radians(rotate_const * 0.5) * dt
+        A += math.radians(180) * dt # 1秒で180度回転
+        B += math.radians(120) * dt
+        C += math.radians(60) * dt
 
         # --- フレーム調整 ---
         elapsed = time.perf_counter() - frame_start

@@ -105,8 +105,8 @@ def main():
                     calculate_for_surface(cube_width + horizontal_offset, cube_y, cube_x, '$')
                     calculate_for_surface(-cube_width + horizontal_offset, cube_y, -cube_x, '~')
                     calculate_for_surface(-cube_x + horizontal_offset, cube_y, cube_width, '#')
-                    calculate_for_surface(cube_x + horizontal_offset, -cube_width, -cube_y, ';')
-                    calculate_for_surface(cube_x + horizontal_offset, cube_width, cube_y, '+')
+                    calculate_for_surface(cube_x + horizontal_offset, cube_width, -cube_y, ';')
+                    calculate_for_surface(cube_x + horizontal_offset, -cube_width, cube_y, '+')
                     cube_y += increment_speed
                 cube_x += increment_speed
 
@@ -125,7 +125,7 @@ def main():
         rotate_const = 10
         A += math.radians(rotate_const * 3) * dt # 1秒で180度回転
         B += math.radians(rotate_const * 2) * dt
-        C += math.radians(rotate_const * 0.5) * dt
+        C += math.radians(rotate_const * 1) * dt
 
         # --- フレーム調整 ---
         elapsed = time.perf_counter() - frame_start
