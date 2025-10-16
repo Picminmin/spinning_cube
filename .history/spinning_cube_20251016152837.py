@@ -1,18 +1,7 @@
 import math
 import os
 import time
-"""
-回転キューブの実装(2025/10/16)
-参考にしたサイト
-Channel name : Code Fiction
-title        : 「スピニングキューブはどのように機能しますか？」
-URL          : https://www.youtube.com/watch?v=0E0UBphVRhY
-
-Channel name : Tarik Michel Follmer
-title        : "I Made ASMR Spinning Cube with Python (Code Included)"
-URL          : https://www.youtube.com/watch?v=ds97cgeFe54
-
-"""
+"""回転キューブの実装"""
 # A, B, Cはそれぞれ、x軸, y軸, z軸に対して反時計回りする回転角の大きさを表す。
 A = B = C = 0
 
@@ -109,7 +98,7 @@ def clear_screen():
 
 def main():
     global A, B, C, cube_width, horizontal_offset, buffer, z_buffer
-
+    
     while True:
         buffer = [background_ascii_code] * (width * height)
         z_buffer = [0] * (width * height)

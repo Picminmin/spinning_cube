@@ -1,18 +1,7 @@
 import math
 import os
 import time
-"""
-回転キューブの実装(2025/10/16)
-参考にしたサイト
-Channel name : Code Fiction
-title        : 「スピニングキューブはどのように機能しますか？」
-URL          : https://www.youtube.com/watch?v=0E0UBphVRhY
-
-Channel name : Tarik Michel Follmer
-title        : "I Made ASMR Spinning Cube with Python (Code Included)"
-URL          : https://www.youtube.com/watch?v=ds97cgeFe54
-
-"""
+"""回転キューブの実装"""
 # A, B, Cはそれぞれ、x軸, y軸, z軸に対して反時計回りする回転角の大きさを表す。
 A = B = C = 0
 
@@ -30,17 +19,7 @@ increment_speed = 1.5       # キューブの点をサンプリングする間�
 
 # 各軸まわりの3次元回転行列の定義
 def calculate_x(i, j, k):
-    """
-    3D回転で点(i, j, k)を回して得た新しいx座標を回転行列の展開形で直接計算する
-
-    Args:
-        i (_type_): _description_
-        j (_type_): _description_
-        k (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
+    
     return j * math.sin(A) *\
                 math.sin(B) *\
                 math.cos(C) - k *\

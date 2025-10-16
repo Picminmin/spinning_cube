@@ -10,7 +10,7 @@ URL          : https://www.youtube.com/watch?v=0E0UBphVRhY
 
 Channel name : Tarik Michel Follmer
 title        : "I Made ASMR Spinning Cube with Python (Code Included)"
-URL          : https://www.youtube.com/watch?v=ds97cgeFe54
+URL          : https://www.youtube.com/watch?v=0E0UBphVRhY
 
 """
 # A, B, Cはそれぞれ、x軸, y軸, z軸に対して反時計回りする回転角の大きさを表す。
