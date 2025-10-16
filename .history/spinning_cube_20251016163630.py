@@ -76,15 +76,9 @@ def calculate_for_surface(cube_x, cube_y, cube_z, ch):
 def clear_screen():
     """
     コンソールに表示した内容を削除する。
-    windows10 以降の標準コンソール/Windows Terminal/PowerShellはANSIシーケンスに対応している。
-    \033 - ESC(エスケープ)文字。エスケープシーケンスの開始を表すのに使う。
+    \033 - ESC(エスケープ)文字
     \033[H - カーソルを(1,1)(左上)へ移動する。CUP(Cursor Position)の省略形。
-    \033[J - カーソル位置から画面末尾までを削除する。ED(Erase in Display)のこと。
-
-    エスケープシーケンスとは？
-    エスケープシーケンス(escape sequence)とは、通常の文字ではなく特別な意味を持つ
-    文字列のことである。
-    str型のデータではなく、端末に対する命令を送るための"エスケープした文字列"である。
+    \033[J - カーソル位置から最後の行までに表示された内容を削除する。
     """
     print("\033[H\033[J", end="") # Linux/mac/Windows(ANSI対応)共通
 

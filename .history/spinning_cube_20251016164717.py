@@ -77,7 +77,7 @@ def clear_screen():
     """
     コンソールに表示した内容を削除する。
     windows10 以降の標準コンソール/Windows Terminal/PowerShellはANSIシーケンスに対応している。
-    \033 - ESC(エスケープ)文字。エスケープシーケンスの開始を表すのに使う。
+    \033 - ESC(エスケープ)文字。エスケープシーケンス
     \033[H - カーソルを(1,1)(左上)へ移動する。CUP(Cursor Position)の省略形。
     \033[J - カーソル位置から画面末尾までを削除する。ED(Erase in Display)のこと。
 
