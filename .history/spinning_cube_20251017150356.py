@@ -72,7 +72,7 @@ def calculate_for_surface(cube_x, cube_y, cube_z, ch):
     z += distance_from_cam
 
     ooz = 1 / z
-    xp = int(width / 2 + K1 * ooz * x * 2) # 後半の項を2倍するのは、アスペクト比を補正するのに使う
+    xp = int(width / 2 + K1 * ooz * x * 2) 
     yp = int(height / 2 + K1 * ooz * y)
 
     idx = xp + yp * width

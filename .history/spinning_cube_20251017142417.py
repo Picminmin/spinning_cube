@@ -1,7 +1,5 @@
 import math
 import time
-from colorama import init
-init()
 """
 回転キューブの実装(2025/10/16)
 参考にしたサイト
@@ -24,30 +22,21 @@ A = B = C = 0
 # offsets = [-40, 10, 40]   # 各立方体の水平オフセット
 cube_widths = [20]          # 複数サイズの立方体の半径(中心から各面までの距離)
 offsets = [0]               # 各立方体の水平オフセット
-width, height = 160, 40     # コンソールの画面サイズ(文字単位)
-distance_from_cam = 100     # カメラとキューブの距離(小さくすると迫力が増す)
-K1 = 40                     # 投影スケール(遠近感の強さを調整), 焦点距離の代用として使うスケーリング定数
-increment_speed = 1         # 点間のサンプリング間隔
+
+width, height = 160, 40   # コンソールの画面サイズ(文字単位)
+distance_from_cam = 100   # カメラとキューブの距離(小さくすると迫力が増す)
+K1 = 40                   # 投影スケール(遠近感の強さを調整)
+
+# --- 表示設定 ---
+background_ascii_code = '_' # 背景を見やすくする文字列(半角スペース, アンダーバー, etc.)
+increment_speed = 0.6       # キューブの点をサンプリングする間隔
 target_fps = 60
 target_dt = 1.0 / target_fps
-
-# --- 背景文字 ---
-background_ascii_code = '_' # 背景を見やすくする文字列(半角スペース, アンダーバー, etc.)
 
 # --- バッファ ---
 # z_bufferは回転キューブの各点の中で、手前の点だけを描画できるようにする。
 z_buffer = [0] * (width * height) # どの点が手前にあるかを記録する(Zバッファ法)
 buffer = [' '] * (width * height) # 描画する文字を格納する(2D画面)
-
-# --- ANSIカラー定義 (ルービックキューブ6面) ---
-colors = {
-    "front":  "\033[31m@\033[0m",  # 赤
-    "back":   "\033[35m+\033[0m",  # 紫(橙の代替)
-    "right":  "\033[34m$\033[0m",  # 青
-    "left":   "\033[32m~\033[0m",  # 緑
-    "top":    "\033[37m#\033[0m",  # 白
-    "bottom": "\033[33m;\033[0m",  # 黄
-}
 
 # ============================
 # 回転計算の高速版
@@ -72,7 +61,7 @@ def calculate_for_surface(cube_x, cube_y, cube_z, ch):
     z += distance_from_cam
 
     ooz = 1 / z
-    xp = int(width / 2 + K1 * ooz * x * 2) # 後半の項を2倍するのは、アスペクト比を補正するのに使う
+    xp = int(width / 2 + K1 * ooz * x * 2)
     yp = int(height / 2 + K1 * ooz * y)
 
     idx = xp + yp * width
@@ -104,6 +93,7 @@ def clear_screen():
 # ============================
 def main():
     global A, B, C, buffer, z_buffer
+
     prev_time = time.perf_counter()
 
     while True:
@@ -117,12 +107,12 @@ def main():
             while cube_x < cube_width:
                 cube_y = -cube_width
                 while cube_y < cube_width:
-                    calculate_for_surface(cube_x + horizontal_offset, cube_y, -cube_width, colors["front"])
-                    calculate_for_surface(cube_x + horizontal_offset, cube_y,  cube_width, colors["back"])
-                    calculate_for_surface(cube_width + horizontal_offset, cube_y, cube_x, colors["right"])
-                    calculate_for_surface(-cube_width + horizontal_offset, cube_y, -cube_x, colors["left"])
-                    calculate_for_surface(cube_x + horizontal_offset, -cube_width, -cube_y, colors["bottom"])
-                    calculate_for_surface(cube_x + horizontal_offset,  cube_width,  cube_y, colors["top"])
+                    calculate_for_surface(cube_x + horizontal_offset, cube_y, -cube_width, '@') # 前面(z = -cube_width 固定)
+                    calculate_for_surface(cube_width + horizontal_offset, cube_y, cube_x, '$')  
+                    calculate_for_surface(-cube_width + horizontal_offset, cube_y, -cube_x, '~')
+                    calculate_for_surface(-cube_x + horizontal_offset, cube_y, cube_width, '#')
+                    calculate_for_surface(cube_x + horizontal_offset, -cube_width, -cube_y, ';')
+                    calculate_for_surface(cube_x + horizontal_offset, cube_width, cube_y, '+')
                     cube_y += increment_speed
                 cube_x += increment_speed
 
@@ -140,7 +130,7 @@ def main():
         prev_time = now
         rotate_const = 10
         A += math.radians(rotate_const * 3) * dt # 1秒で180度回転
-        B += math.radians(rotate_const * 0) * dt
+        B += math.radians(rotate_const * 2) * dt
         C += math.radians(rotate_const * 1) * dt
 
         # --- フレーム調整 ---

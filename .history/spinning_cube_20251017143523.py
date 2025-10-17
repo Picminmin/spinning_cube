@@ -24,10 +24,10 @@ A = B = C = 0
 # offsets = [-40, 10, 40]   # 各立方体の水平オフセット
 cube_widths = [20]          # 複数サイズの立方体の半径(中心から各面までの距離)
 offsets = [0]               # 各立方体の水平オフセット
-width, height = 160, 40     # コンソールの画面サイズ(文字単位)
-distance_from_cam = 100     # カメラとキューブの距離(小さくすると迫力が増す)
-K1 = 40                     # 投影スケール(遠近感の強さを調整), 焦点距離の代用として使うスケーリング定数
-increment_speed = 1         # 点間のサンプリング間隔
+width, height = 160, 40   # コンソールの画面サイズ(文字単位)
+distance_from_cam = 100   # カメラとキューブの距離(小さくすると迫力が増す)
+K1 = 40                   # 投影スケール(遠近感の強さを調整)
+increment_speed = 0.6       # 点間のサンプリング間隔
 target_fps = 60
 target_dt = 1.0 / target_fps
 
@@ -72,7 +72,7 @@ def calculate_for_surface(cube_x, cube_y, cube_z, ch):
     z += distance_from_cam
 
     ooz = 1 / z
-    xp = int(width / 2 + K1 * ooz * x * 2) # 後半の項を2倍するのは、アスペクト比を補正するのに使う
+    xp = int(width / 2 + K1 * ooz * x * 2)
     yp = int(height / 2 + K1 * ooz * y)
 
     idx = xp + yp * width
@@ -140,7 +140,7 @@ def main():
         prev_time = now
         rotate_const = 10
         A += math.radians(rotate_const * 3) * dt # 1秒で180度回転
-        B += math.radians(rotate_const * 0) * dt
+        B += math.radians(rotate_const * 2) * dt
         C += math.radians(rotate_const * 1) * dt
 
         # --- フレーム調整 ---
